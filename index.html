@@ -36,7 +36,9 @@
             // Create a gradient color for the petals (from dark red to light red)
             let startColor = color(255, 0, 0); // Dark red
             let endColor = color(255, 100, 100); // Lighter red
-            let gradientStep = angle / 1440; // Gradually change gradient as the petals grow
+
+            // Gradually change the color over time by using frameCount
+            let gradientStep = map(frameCount % 100, 0, 100, 0, 1); // Loops over 100 frames for smooth color change
 
             // Draw the spiral rose petals with gradient inside
             stroke(255); // White color for the petals (spiral lines)
@@ -49,13 +51,11 @@
                 let x = r * cos(theta * numPetals);
                 let y = r * sin(theta * numPetals);
 
-                // Apply the gradient based on the radius
+                // Apply the gradient based on the frame count
                 let col = lerpColor(startColor, endColor, gradientStep);
                 fill(col); // Set fill color with gradient
 
                 vertex(x, y);
-
-                
 
                 // Increase petal count and stop if it reaches maxPetals
                 petalCount++;
