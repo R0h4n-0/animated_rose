@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Rose</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #222; }
+        canvas {
+            border-radius: 50%;  /* Makes the canvas circular */
+            border: 2px solid black; /* Optional: add border to see the circular shape */
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let angle = 0;
+        let a = 1.25; // Adjusted scaling factor for fitting the rose within the canvas
+        let numPetals = 25; // Number of rose petals
+        let maxRadius;
+        let petalCount = 0; // Track number of petals drawn
+        let maxPetals = 3200; // Set a limit for the number of petals
+
+        function setup() {
+            createCanvas(500, 500);
+            angleMode(DEGREES);
+            maxRadius = width / 2 - 20; // Calculate maxRadius based on canvas size
+            background(34); // Set background once in setup
+        }
+
+        function draw() {
+            translate(width / 2, height / 2);
+            noFill();
+
+            // Create a gradient color for the petals (from dark red to light red)
+            let startColor = color(255, 0, 0); // Dark red
+            let endColor = color(255, 100, 100); // Lighter red
+            let gradientStep = angle / 1440; // Gradually change gradient as the petals grow
+
+            // Draw the spiral rose petals with gradient inside
+            stroke(255); // White color for the petals (spiral lines)
+            strokeWeight(2);
+
+            // Draw the circular boundaries (the ellipses)
+            beginShape();
+            for (let theta = 0; theta < angle; theta += 2) {
+                let r = a * theta;
+                let x = r * cos(theta * numPetals);
+                let y = r * sin(theta * numPetals);
+
+                // Apply the gradient based on the radius
+                let col = lerpColor(startColor, endColor, gradientStep);
+                fill(col); // Set fill color with gradient
+
+                vertex(x, y);
+
+                
+
+                // Increase petal count and stop if it reaches maxPetals
+                petalCount++;
+                if (petalCount >= maxPetals) {
+                    break;
+                }
+            }
+            endShape();
+
+            // Slow down the animation by reducing the increment
+            if (angle < 1440) {
+                angle += 2; // Slower increment
+            } else {
+                // Once the animation ends, stop the animation
+                noLoop(); // Stops the draw loop after the animation finishes
+            }
+        }
+    </script>
+</body>
+</html>
