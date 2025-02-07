@@ -11,9 +11,19 @@
             border-radius: 50%;  /* Makes the canvas circular */
             border: 2px solid black; /* Optional: add border to see the circular shape */
         }
+        h1 {
+            color: pink;
+            text-align: center;
+            margin-bottom: 20px;
+            position: absolute;
+            top: 20px;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
+    <h1 id="heading">This one's for you</h1>
+    
     <script>
         let angle = 0;
         let a = 1.25; // Adjusted scaling factor for fitting the rose within the canvas
